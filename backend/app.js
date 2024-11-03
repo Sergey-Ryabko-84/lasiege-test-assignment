@@ -1,10 +1,26 @@
-const express = require("express")
-const cors = require("cors")
-const bodyParser = require("body-parser")
+const express = require("express");
+const cors = require("cors");
+const bodyParser = require("body-parser");
 
-const app = express()
+const { productRoutes, categoryRoutes, cartRoutes, orderRoutes } = require("./routes");
 
-app.use(bodyParser.json())
-app.use(cors())
+const app = express();
 
-module.exports = app
+app.use(bodyParser.json());
+app.use(cors());
+
+app.use("/api/products", productRoutes);
+app.use("/api/categories", categoryRoutes);
+app.use("/api/cart", cartRoutes);
+app.use("/api/orders", orderRoutes);
+
+app.use((req, res, next) => {
+  res.status(404).json({ message: "Route not found" });
+});
+
+app.use((err, req, res, next) => {
+  const { status = 500, message = "Internal Server Error" } = err;
+  res.status(status).json({ message: message });
+});
+
+module.exports = app;
