@@ -33,7 +33,7 @@ const productsPostSchema = Joi.object({
   name: Joi.string().required(),
   price: Joi.number().required(),
   categoryId: Joi.string().required(),
-  image: Joi.string(),
+  imageUrl: Joi.string(),
 });
 
 module.exports = { Product, productsPostSchema };
