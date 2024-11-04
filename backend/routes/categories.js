@@ -14,7 +14,6 @@ router.post("/", validateBody(categoriesPostSchema), async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
-  console.log("categories get Route");
   try {
     const categories = await Category.find();
     res.status(200).json(categories);
