@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+const { Schema, model } = require("mongoose");
+const Joi = require("joi");
 
 const categorySchema = new Schema({
   name: {
@@ -15,4 +15,10 @@ const categorySchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("Category", categorySchema);
+const Category = model("Category", categorySchema);
+
+const categoriesPostSchema = Joi.object({
+  name: Joi.string().required(),
+});
+
+module.exports = { Category, categoriesPostSchema };

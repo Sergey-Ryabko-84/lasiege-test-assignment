@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const { Category } = require("../models");
+const { validateBody } = require("../middlewares");
+const { Category, categoriesPostSchema } = require("../models");
 
-router.post("/", async (req, res) => {
+router.post("/", validateBody(categoriesPostSchema), async (req, res) => {
   try {
     const category = new Category(req.body);
     await category.save();
@@ -13,6 +14,7 @@ router.post("/", async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
+  console.log("categories get Route");
   try {
     const categories = await Category.find();
     res.status(200).json(categories);

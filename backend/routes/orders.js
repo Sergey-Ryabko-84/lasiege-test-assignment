@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const { Cart, Order } = require("../models");
+const { validateBody } = require("../middlewares");
+const { Cart, Order, ordersPostSchema } = require("../models");
 
-router.post("/", async (req, res) => {
+router.post("/", validateBody(ordersPostSchema), async (req, res) => {
   try {
     const { cartId, user } = req.body;
     const cart = await Cart.findById(cartId).populate("items.productId");
-    console.log("cart", cart);
     if (!cart) {
       return res.status(404).json({ message: "Cart not found" });
     }

@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+const { Schema, model } = require("mongoose");
+const Joi = require("joi");
 
 const productSchema = new Schema({
   name: {
@@ -27,4 +27,13 @@ const productSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("Product", productSchema);
+const Product = model("Product", productSchema);
+
+const productsPostSchema = Joi.object({
+  name: Joi.string().required(),
+  price: Joi.number().required(),
+  categoryId: Joi.string().required(),
+  image: Joi.string(),
+});
+
+module.exports = { Product, productsPostSchema };

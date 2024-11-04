@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const { Product } = require("../models");
+const { validateBody, isValidId } = require("../middlewares");
+const { Product, productsPostSchema } = require("../models");
 
-router.post("/", async (req, res) => {
+router.post("/", validateBody(productsPostSchema), async (req, res) => {
   try {
     const product = new Product(req.body);
     await product.save();
@@ -21,7 +22,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", isValidId, async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
     if (!product) {

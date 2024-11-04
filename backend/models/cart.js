@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const { Schema } = mongoose;
+const { Schema, model } = require("mongoose");
+const Joi = require("joi");
 
 const cartSchema = new Schema({
   items: [
@@ -22,4 +22,15 @@ const cartSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("Cart", cartSchema);
+const Cart = model("Cart", cartSchema);
+
+const cartPostSchema = Joi.object({
+  items: Joi.array().items(
+    Joi.object({
+      productId: Joi.string().required(),
+      quantity: Joi.number().required(),
+    })
+  ),
+});
+
+module.exports = { Cart, cartPostSchema };
