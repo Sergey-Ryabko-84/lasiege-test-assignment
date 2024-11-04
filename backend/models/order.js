@@ -39,7 +39,6 @@ const orderSchema = new Schema({
 const Order = model("Order", orderSchema);
 
 const ordersPostSchema = Joi.object({
-  cartId: Joi.string().required(),
   user: Joi.object({
     name: Joi.string().required(),
     address: Joi.string().required(),

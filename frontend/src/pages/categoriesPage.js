@@ -1,10 +1,14 @@
-import { fetchProducts, fetchCategories } from "../api/categoriesApi";
+import { fetchProducts, fetchCategories } from "../api";
+import { updateCartCount } from "../utils";
 
 document.addEventListener("DOMContentLoaded", async () => {
   const productList = document.getElementById("product-list");
   const categorySelect = document.getElementById("category-select");
 
+  if (!productList) return;
+
   try {
+    await updateCartCount();
     const categories = await fetchCategories();
     categorySelect.innerHTML = "<option value=''>All Categories</option>";
     categories.forEach((category) => {
