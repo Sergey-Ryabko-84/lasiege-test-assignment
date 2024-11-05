@@ -15,7 +15,7 @@ This project is a simple online store, consisting of:
 
 1. **Clone the Repository:**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/Sergey-Ryabko-84/lasiege-test-assignment
    cd root/frontend
    ```
 
