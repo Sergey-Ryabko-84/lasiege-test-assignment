@@ -1,7 +1,5 @@
 const API_BASE_URL = process.env.API_BASE_URL;
 
-console.log("API_BASE_URL:", API_BASE_URL);
-
 export const fetchProducts = async () => {
   const response = await fetch(`${API_BASE_URL}/products`);
   if (!response.ok) {

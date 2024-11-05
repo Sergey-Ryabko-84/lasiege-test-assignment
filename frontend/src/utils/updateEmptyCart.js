@@ -11,8 +11,6 @@ export async function updateEmptyCart() {
     cartItemsContainer.style.textAlign = "center";
     cartItemsContainer.innerHTML = "🛒 the cart is empty";
     checkoutContainer.style.visibility = "hidden";
-
-    console.log("checkoutContainer", checkoutContainer);
   } catch (error) {
     console.error("Failed to update cart count:", error);
   }

@@ -7,6 +7,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   if (!productList) return;
 
+  const loadingMessage = document.createElement("div");
+  loadingMessage.textContent =
+    "...Loading, please wait. This may take a minute on the first launch.";
+  loadingMessage.className = "loading-message";
+  productList.appendChild(loadingMessage);
+
   try {
     await updateCartCount();
     const categories = await fetchCategories();
@@ -30,8 +36,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   } catch (error) {
     console.error("Error loading data:", error);
-    productList.innerHTML =
-      "<li>Please wait. The server needs time to start. Refresh the page in a minute</li>";
+    productList.innerHTML = "<li>Error loading products</li>";
   }
 });
 
