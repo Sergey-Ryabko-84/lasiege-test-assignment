@@ -1,7 +1,7 @@
-const API_BASE_URL = process.env.API_BASE_URL;
+// const API_BASE_URL = process.env.API_BASE_URL;
 
 export const getCart = async () => {
-  const response = await fetch(`${API_BASE_URL}/cart`);
+  const response = await fetch(`/api/cart`);
   if (!response.ok) {
     throw new Error("Failed to fetch categories");
   }
@@ -9,7 +9,7 @@ export const getCart = async () => {
 };
 
 export const getCount = async () => {
-  const response = await fetch(`${API_BASE_URL}/cart/count`);
+  const response = await fetch(`/api/cart/count`);
   if (!response.ok) {
     throw new Error("Failed to fetch categories");
   }
@@ -17,7 +17,7 @@ export const getCount = async () => {
 };
 
 export const addProduct = async (productData) => {
-  const response = await fetch(`${API_BASE_URL}/cart`, {
+  const response = await fetch(`/api/cart`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(productData),
@@ -29,7 +29,7 @@ export const addProduct = async (productData) => {
 };
 
 export const removeProduct = async (productId) => {
-  const response = await fetch(`${API_BASE_URL}/cart/${productId}`, {
+  const response = await fetch(`/api/cart/${productId}`, {
     method: "DELETE",
   });
   if (!response.ok) {
