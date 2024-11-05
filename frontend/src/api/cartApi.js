@@ -19,9 +19,7 @@ export const getCount = async () => {
 export const addProduct = async (productData) => {
   const response = await fetch(`${API_BASE_URL}/cart`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(productData),
   });
   if (!response.ok) {

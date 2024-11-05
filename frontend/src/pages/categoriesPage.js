@@ -39,7 +39,7 @@ function renderProducts(products) {
   productList.innerHTML = "";
 
   products.forEach((product) => {
-    const container = document.createElement("div");
+    const container = document.createElement("li");
     container.className = "product-container";
 
     container.addEventListener("click", () => {

@@ -1,5 +1,5 @@
 import { getCart, addProduct, removeProduct } from "../api";
-import { updateCartCount, updateEmptyCart } from "../utils";
+import { updateEmptyCart } from "../utils";
 
 document.addEventListener("DOMContentLoaded", async () => {
   await renderCart();
@@ -9,8 +9,8 @@ async function renderCart() {
   try {
     const cartItemsContainer = document.getElementById("cart-items");
     const totalCostContainer = document.getElementById("total-cost");
+    if (!cartItemsContainer) return;
 
-    await updateCartCount();
     const cartItems = await getCart();
     if (!cartItems.length) {
       updateEmptyCart();
@@ -25,17 +25,19 @@ async function renderCart() {
       itemElement.className = "cart-item";
 
       itemElement.innerHTML = `
-        <div class="cart-item-content">
+        <li class="cart-item-content">
           <img src="${item.productId.imageUrl}" 
             alt="${item.productId.name}" class="cart-item-image">
           <span class="cart-item-name">${item.productId.name}</span>
           <span class="cart-item-price">$${(item.productId.price * item.quantity).toFixed(2)}</span>
-          <button class="decrease-btn" data-id="${item.productId._id}">-</button>
-          <input class="quantity" data-id="${item.productId._id}" 
-            value="${item.quantity}" min="1" />
-          <button class="increase-btn" data-id="${item.productId._id}">+</button>
+          <div class="quantity-wrapper ">
+            <button class="decrease-btn" data-id="${item.productId._id}">-</button>
+            <input class="quantity" data-id="${item.productId._id}" 
+              value="${item.quantity}" min="1" />
+            <button class="increase-btn" data-id="${item.productId._id}">+</button>
+          </div>
           <button class="remove-btn" data-id="${item.productId._id}">🗑️ delete</button>
-        </div>
+        </li>
       `;
 
       cartItemsContainer.appendChild(itemElement);
@@ -85,7 +87,6 @@ async function handleRemoveProduct(event) {
   try {
     await removeProduct(productId);
     await renderCart();
-    await updateCartCount();
   } catch (error) {
     console.error("Failed to remove product from cart:", error);
     alert("Failed to remove product. Please try again.");
