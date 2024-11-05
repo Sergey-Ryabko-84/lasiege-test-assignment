@@ -30,7 +30,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   } catch (error) {
     console.error("Error loading data:", error);
-    productList.innerHTML = "<li>Error loading products</li>";
+    productList.innerHTML =
+      "<li>Please wait. The server needs time to start. Refresh the page in a minute</li>";
   }
 });
 
